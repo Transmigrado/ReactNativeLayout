@@ -2,6 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import Base from './Base'
 
-const Row = Base({flexDirection:'row'})
+const Col = Base({flexDirection:'column'})
 
-export default Row
+export default Col

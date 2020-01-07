@@ -51,11 +51,21 @@ const extractBorderRadius = props => {
   };
 };
 
+const extractBackground = (props: {}) => {
+    const { background } = props;
+
+    if (background === undefined) {
+        return {};
+    }
+
+    return {
+        backgroundColor: background
+    }
+} 
+
 export const propToStyleSheet = (props: {}) => 
     removeUndefinedValues({
         ...extractPadding(props),
         ...extractBorderRadius(props),
-        width: props.size,
-        height: props.size,
-        backgroundColor: props.background,
-  });
+        ...extractBackground(props),
+});
