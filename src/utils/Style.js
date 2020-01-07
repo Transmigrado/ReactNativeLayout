@@ -53,8 +53,8 @@ const extractBorderRadius = props => {
 
 export const propToStyleSheet = (props: {}) => 
     removeUndefinedValues({
-        padding: extractPadding(props),
-        borderRadius: extractBorderRadius(props),
+        ...extractPadding(props),
+        ...extractBorderRadius(props),
         width: props.size,
         height: props.size,
         backgroundColor: props.background,
