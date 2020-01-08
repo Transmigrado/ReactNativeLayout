@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { propToStyleSheet } from '../utils/Style';
 
@@ -9,9 +8,27 @@ import {
   Animated,
 } from 'react-native';
 
+type Offset = {
+    x: number,
+    y: number
+}
+
+type Padding = {
+    paddingLeft: number,
+    paddingBottom: number,
+    paddingRight: number,
+    paddingTop: number,
+    paddingVertical: number,
+    paddingHorizontal: number,
+}
 
 type Props = {
-    padding: number,
+    padding: number | Padding,
+    top: boolean,
+    bottom: boolean,
+    left: boolean,
+    right: boolean,
+    offset: Offset,
     background: string,
     children?: React.Node,
 };
@@ -27,8 +44,8 @@ const Base = (rootStyle:{}) => (props : Props) => {
     }
 
     const interpolate = prop => value.interpolate({
-            inputRange: [0, 1],
-            outputRange: [initial[prop], propToStyleSheet(props)[prop]],
+        inputRange: [0, 1],
+        outputRange: [initial[prop], propToStyleSheet(props)[prop]],
     })
 
     const animate = () => {
@@ -42,13 +59,21 @@ const Base = (rootStyle:{}) => (props : Props) => {
     const style = () => Object.keys(propToStyleSheet(props))
                         .reduce((acc,cur) => ({...acc,[cur]:interpolate(cur)}),{})
 
-    useEffect(animate,[props.padding, props.background]);
+    useEffect(animate,[props.padding, props.background, props.offset]);
 
     return (
-        <Animated.View style={[rootStyle,style()]}>
+        <Animated.View style={[rootStyle, style()]}>
             {props.children}
         </Animated.View>
     );
 };
+
+Base.defaultProps = {
+    offset: {
+        x:0,
+        y:0,
+    }
+}
+
 
 export default Base

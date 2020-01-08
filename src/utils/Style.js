@@ -63,9 +63,26 @@ const extractBackground = (props: {}) => {
     }
 } 
 
+const extractPosition = (props: {}) => {
+  const { top, left, right, bottom } = props;
+  
+  if (top) {
+    return {top: props.offset.y};
+  }
+
+  if (bottom) {
+    return {bottom: props.offset.y};
+  }
+
+  return {};
+
+
+}
+
 export const propToStyleSheet = (props: {}) => 
     removeUndefinedValues({
         ...extractPadding(props),
         ...extractBorderRadius(props),
         ...extractBackground(props),
+        ...extractPosition(props)
 });
