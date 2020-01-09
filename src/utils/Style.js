@@ -1,5 +1,4 @@
-const isObject = o =>
-  o !== null && typeof o === 'object' && Array.isArray(o) === false;
+import { isObject } from './Eval'
 
 const removeUndefinedValues = o => Object.keys(o).reduce(
     (acc, cur) => (o[cur] !== undefined ? {...acc, [cur]: o[cur]} : acc),
