@@ -18,6 +18,8 @@ const data = [
   {label:'mundo 5', padding:30},
   {label:'mundo 6', padding:10},
   {label:'mundo 7', padding:20},
+  {label:'mundo 1', padding:40},
+  {label:'mundo 2', padding:10},
 ]
 
 const App: () => React$Node = () => {
@@ -27,14 +29,16 @@ const App: () => React$Node = () => {
       <SafeAreaView>
         <Container>
             <ForEach scroll data={data}>
-              
-                <Row padding={10}>
+                <Row padding={20}>
                   <Card>
                     <Text>:label</Text>
+                    <Text>:padding</Text>
+                  </Card>
+                  <Card>
                     <Text>:label</Text>
+                    <Text>:padding</Text>
                   </Card>
                 </Row>
-              
             </ForEach>
         </Container>
       </SafeAreaView>
