@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         paddingHorizontal: 18,
         paddingVertical: 19,
-        borderColor: '#F5F5F5'
+        borderColor: '#F5F5F5',
     }
 })
 

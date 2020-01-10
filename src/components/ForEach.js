@@ -15,9 +15,9 @@ const ForEach = (rootProps : Props) => {
   const { data, scroll } = rootProps
   
   const objToComponent = (item, element, constraint) => {
-    const Component = element.type;
 
-    let props = objToProps(item, element.props);
+    const Component = element.type;
+    const props = objToProps(item, element.props);
 
     const {isLast, isFirst, isOdd, isPair} = constraint;
 
@@ -25,7 +25,9 @@ const ForEach = (rootProps : Props) => {
       (isLast && props.nolast) ||
       (isFirst && props.nofirst) ||
       (isOdd && props.pair) ||
-      (isPair && props.odd)
+      (isPair && props.odd) ||
+      (!isFirst && props.first) || 
+      (!isLast && props.last)
     ) {
       return null;
     }
@@ -61,11 +63,11 @@ const ForEach = (rootProps : Props) => {
 
     if (children instanceof Array) {
       return (
-        <React.Fragment key={`key-${i}`}>
+        <>
           {[...children]
             .map(e => ({item, children: e, parent: i}))
             .map(mapper)}
-        </React.Fragment>
+        </>
       );
     }
 
@@ -77,7 +79,7 @@ const ForEach = (rootProps : Props) => {
     });
   };
 
-  const compose = (item, i) => ({item, children: rootProps.children});
+  const compose = (item, i) => ({item, children: rootProps.children, parent:i});
 
   if(scroll){
     return <ScrollView>{data.map(compose).map(mapper)}</ScrollView>

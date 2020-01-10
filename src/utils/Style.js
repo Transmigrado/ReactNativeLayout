@@ -12,7 +12,7 @@ const extractPadding = props => {
   }
 
   if (isObject(padding)) {
-    const {horizontal, h, vertical, v} = props;
+    const {horizontal, h, vertical, v} = padding;
     return {
       paddingLeft: padding.left,
       paddingBottom: padding.bottom,
@@ -80,8 +80,8 @@ const extractPosition = (props: {}) => {
 
 export const propToStyleSheet = (props: {}) => 
     removeUndefinedValues({
-        ...extractPadding(props),
-        ...extractBorderRadius(props),
-        ...extractBackground(props),
-        ...extractPosition(props)
+        ...removeUndefinedValues(extractPadding(props)),
+        ...removeUndefinedValues(extractBorderRadius(props)),
+        ...removeUndefinedValues(extractBackground(props)),
+        ...removeUndefinedValues(extractPosition(props))
 });
