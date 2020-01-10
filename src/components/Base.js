@@ -6,6 +6,7 @@ import {
   View,
   Text,
   Animated,
+  TouchableOpacity
 } from 'react-native';
 
 type Offset = {
@@ -31,6 +32,7 @@ type Props = {
     offset: Offset,
     background: string,
     children?: React.Node,
+    onPress: function
 };
 
 const Base = (rootStyle:{}) => (props : Props) => {
@@ -59,11 +61,16 @@ const Base = (rootStyle:{}) => (props : Props) => {
     const style = () => Object.keys(propToStyleSheet(props))
                         .reduce((acc,cur) => ({...acc,[cur]:interpolate(cur)}),{})
 
+    const WrappedComponent = props.onPress !== undefined ? TouchableOpacity : React.Fragment
+    const wrappedComponentProps = props.onPress !== undefined ? {onPress:props.onPress,style:{flex:1}}:{}
+
     useEffect(animate,[props.padding, props.background, props.offset]);
 
     return (
         <Animated.View style={[rootStyle, style()]}>
-            {props.children}
+            <WrappedComponent {...wrappedComponentProps}>
+                {props.children}
+            </WrappedComponent>
         </Animated.View>
     );
 };
